@@ -76,9 +76,6 @@ class TesseractOCR(OCR):
 
         return OCRResult(pages=pages)
 
-    def process_sync(self, *args, **kwargs) -> OCRResult:
-        return asyncio.run(super().process(*args, **kwargs))
-
     def identify_image_language(self, image: Image) -> str:
         self.download_if_missing('eng')
         text = pytesseract.image_to_string(image)

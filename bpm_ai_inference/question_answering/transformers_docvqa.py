@@ -57,6 +57,3 @@ class TransformersDocVQA(QuestionAnswering):
             start_index=prediction.get('start', None),
             end_index=prediction.get('end', None),
         )
-
-    def answer_sync(self, *args, **kwargs) -> QAResult:
-        return asyncio.run(super().answer(*args, **kwargs))

@@ -67,9 +67,3 @@ class SpacyPOSTagger(POSTagger):
         doc = self.nlp(text)
         tags = [(token.text_with_ws, token.pos_) for token in doc]
         return POSResult(tags=tags)
-
-    def tag_sync(self, *args, **kwargs) -> POSResult:
-        return asyncio.run(super().tag(*args, **kwargs))
-
-
-

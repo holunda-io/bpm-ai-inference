@@ -58,6 +58,3 @@ class Pix2StructVQA(QuestionAnswering):
             start_index=None,
             end_index=None,
         )
-
-    def answer_sync(self, *args, **kwargs) -> QAResult:
-        return asyncio.run(super().answer(*args, **kwargs))

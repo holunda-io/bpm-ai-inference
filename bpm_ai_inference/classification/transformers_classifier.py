@@ -61,9 +61,3 @@ class TransformersClassifier(ZeroShotClassifier):
             max_score=max_score,
             labels_scores=labels_scores
         )
-
-    def classify_sync(self, *args, **kwargs) -> ClassificationResult:
-        return asyncio.run(super().classify(*args, **kwargs))
-
-
-

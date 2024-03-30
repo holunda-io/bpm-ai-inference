@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "bpm-ai-inference"
 version = "0.1.0"
-description = ""
+description = "Inference and server for local AI implementations of bpm-ai-core abstractions."
 authors = ["Bennet Krause <bennet.krause@holisticon.de>"]
 repository = "https://github.com/holunda-io/bpm-ai-inference"
 homepage = "https://www.holisticon.de/"
@@ -10,7 +10,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-bpm-ai-core = {path="../bpm-ai/bpm-ai-core", develop=true}
+bpm-ai-core = "2.0.0"
 faster-whisper = "^0.10.0"
 lingua-language-detector = "^2.0.2"
 pytesseract = "^0.3.10"

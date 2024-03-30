@@ -127,9 +127,6 @@ class EasyNMT(NMTModel):
         else:
             return [self.do_translate(t, target_language, indentify_language(t)) for t in text]
 
-    def translate_sync(self, *args, **kwargs) -> str | list[str]:
-        return asyncio.run(super().translate(*args, **kwargs))
-
     def do_translate(
             self,
             documents: Union[str, List[str]],

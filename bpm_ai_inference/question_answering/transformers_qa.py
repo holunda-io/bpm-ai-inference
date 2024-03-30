@@ -55,6 +55,3 @@ class TransformersExtractiveQA(QuestionAnswering):
             start_index=prediction['start'],
             end_index=prediction['end'],
         )
-
-    def answer_sync(self, *args, **kwargs) -> QAResult:
-        return asyncio.run(super().answer(*args, **kwargs))

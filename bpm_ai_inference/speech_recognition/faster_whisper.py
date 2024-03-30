@@ -37,6 +37,3 @@ class FasterWhisperASR(ASRModel):
     async def _do_transcribe(self, audio: io.BytesIO, language: str = None) -> str:
         segments, info = self.model.transcribe(audio, language=language)
         return "".join([s.text for s in list(segments)])
-
-    def transcribe_sync(self, *args, **kwargs) -> str:
-        return asyncio.run(super().transcribe(*args, **kwargs))
