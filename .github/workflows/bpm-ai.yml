@@ -1,0 +1,33 @@
+name: CI bpm-ai-inference
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  pytest:
+    defaults:
+      run:
+        working-directory: ./tests
+    runs-on: ubuntu-latest
+    steps:
+      -
+        uses: actions/checkout@v4
+      -
+        run: sudo apt-get install -y tesseract-ocr poppler-utils
+      -
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      -
+        name: Set up poetry
+        uses: abatilo/actions-poetry@v2
+        with:
+          poetry-version: "1.6.1"
+      -
+        name: Install dependencies
+        run: poetry install
+      -
+        name: Run pytest
+        run: poetry run pytest
