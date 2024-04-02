@@ -240,13 +240,13 @@ numpy = {version = ">=1.19.0", markers = "python_version >= \"3.9\""}
 
 [[package]]
 name = "bpm-ai-core"
-version = "2.1.0"
+version = "2.2.0"
 description = "Core AI abstractions and helpers."
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "bpm_ai_core-2.1.0-py3-none-any.whl", hash = "sha256:b7c05aac44f3a05cdd8455636d098685f9501a32b2ea65c6237bb9baa2495580"},
-    {file = "bpm_ai_core-2.1.0.tar.gz", hash = "sha256:c8ed99fcd798a323608ea9c73a1972a58fca0527e1faead6740dafb678a9d721"},
+    {file = "bpm_ai_core-2.2.0-py3-none-any.whl", hash = "sha256:b08e1a3187201268d1f18da14a5d9cc588f2a7de6417f01ec4b0713dc6b65b56"},
+    {file = "bpm_ai_core-2.2.0.tar.gz", hash = "sha256:51a5159cc63937de466614e4c53b3928cafc42e16ad0b74a4c3e6e8f324cffbc"},
 ]
 
 [package.dependencies]
@@ -3052,4 +3052,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "f64ec50f81c894532ca4787e27d41c3d4cd536efb4d460eac8d234704f328044"
+content-hash = "2e8130a7dea02d9da979fe385c17619ebf730a1b6008ab65de3f866f20cfb917"
