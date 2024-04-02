@@ -10,7 +10,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-bpm-ai-core = "2.0.0"
+bpm-ai-core = "2.1.0"
 faster-whisper = "^0.10.0"
 lingua-language-detector = "^2.0.2"
 pytesseract = "^0.3.10"
