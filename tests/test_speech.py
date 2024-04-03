@@ -8,6 +8,7 @@ async def test_faster_whisper():
 
 
 async def test_faster_whisper_url():
+    # todo flaky: av.error.EOFError: [Errno 541478725] End of file: 'audio.ogg'
     fw = FasterWhisperASR()
     result = await fw.transcribe("https://upload.wikimedia.org/wikipedia/commons/d/dd/Armstrong_Small_Step.ogg")
     assert "giant leap for mankind" in result.text.lower()

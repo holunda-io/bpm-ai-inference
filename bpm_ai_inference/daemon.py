@@ -27,7 +27,7 @@ if __name__ == "__main__":
     logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
     daemon = create_remote_object_daemon(
-        host=os.environ.get('DAEMON_HOST', 'localhost'),
+        host=os.environ.get('DAEMON_HOST', '0.0.0.0'),
         port=int(os.environ.get('DAEMON_PORT', 6666))
     )
 

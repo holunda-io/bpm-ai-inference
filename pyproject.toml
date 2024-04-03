@@ -14,19 +14,23 @@ bpm-ai-core = "2.2.0"
 faster-whisper = "^0.10.0"
 lingua-language-detector = "^2.0.2"
 pytesseract = "^0.3.10"
-torch = [
-    { version = "=2.2.2", source="pypi", markers = "sys_platform == 'darwin'" },
-    { version = "=2.2.2+cpu", source = "torch-cpu", markers = "sys_platform != 'darwin'" },
-]
 transformers = "^4.37.2"
 sacremoses = "^0.1.1"
 sentencepiece = "^0.2.0"
 nltk = "^3.8.0"
+pyro5 = "^5.15"
+
+
+[tool.poetry.group.dev.dependencies]
+torch = [
+    { version = "=2.2.2", source="pypi", markers = "sys_platform == 'darwin'" },
+    { version = "=2.2.2+cpu", source = "torch-cpu", markers = "sys_platform != 'darwin'" },
+]
 spacy = [
     { version = "=3.7.4", markers = "sys_platform != 'darwin'" },
     { version = "=3.7.4", extras = ["apple"], markers = "sys_platform == 'darwin' and platform_machine == 'arm64'" },
 ]
-pyro5 = "^5.15"
+
 
 [[tool.poetry.source]]
 name = "torch-cpu"
