@@ -10,10 +10,12 @@ from bpm_ai_inference.question_answering.pix2struct_vqa import Pix2StructVQA
 from bpm_ai_inference.question_answering.transformers_docvqa import TransformersDocVQA
 from bpm_ai_inference.question_answering.transformers_qa import TransformersExtractiveQA
 from bpm_ai_inference.speech_recognition.faster_whisper import FasterWhisperASR
+from bpm_ai_inference.token_classification.transformers_token_classifier import TransformersTokenClassifier
 from bpm_ai_inference.translation.easy_nmt.easy_nmt import EasyNMT
 
 remote_classes = [
     TransformersClassifier,
+    TransformersTokenClassifier,
     TesseractOCR,
     SpacyPOSTagger,
     Pix2StructVQA,

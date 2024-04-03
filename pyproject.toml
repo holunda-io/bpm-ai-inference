@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bpm-ai-inference"
-version = "0.2.2"
+version = "0.2.3"
 description = "Inference and server for local AI implementations of bpm-ai-core abstractions."
 authors = ["Bennet Krause <bennet.krause@holisticon.de>"]
 repository = "https://github.com/holunda-io/bpm-ai-inference"
