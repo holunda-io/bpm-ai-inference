@@ -1,3 +1,4 @@
+from bpm_ai_inference.token_classification.gliner_token_classifier import GlinerTokenClassifier
 from bpm_ai_inference.token_classification.transformers_token_classifier import TransformersTokenClassifier
 
 
@@ -24,3 +25,21 @@ async def test_classify_threshold():
     result = await classifier.classify(text, classes, confidence_threshold=0.8)
 
     assert result.spans == expected
+
+
+async def test_gliner():
+    text = """
+    We received the following orders: Pizza (10.99€), Steak (28.89€). Please deliver asap.
+    """
+    classes = ["meal order", "price"]
+    expected_meal = ["Pizza", "Steak"]
+    expected_price = ["10.99€", "28.89€"]
+
+    classifier = GlinerTokenClassifier(model="urchade/gliner_small")
+    result = await classifier.classify(text, classes)
+
+    meal_spans = [m.word for m in result.spans if m.label == "meal order"]
+    price_spans = [m.word for m in result.spans if m.label == "price"]
+
+    assert meal_spans == expected_meal
+    assert price_spans == expected_price
