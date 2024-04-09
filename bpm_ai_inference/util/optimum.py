@@ -68,6 +68,8 @@ def _hf_home():
 
 def _check_exists_on_hub(repository_id: str, filename: str) -> str | None:
     fs = HfFileSystem()
+    if not fs.exists(repository_id):
+        return None
     hub_models = fs.glob(f"{repository_id}/**/{filename}", maxdepth=3)
     if len(hub_models) == 1:
         model_path = str(Path(hub_models[0].removeprefix(repository_id + "/")).parent)
