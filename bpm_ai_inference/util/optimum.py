@@ -38,10 +38,10 @@ def _holisticon_onnx_repository_id(model_name: str) -> str:
 
 def get_optimized_model(model: str, task: str, optimization_level: int = None, push_to_hub: bool = False):
     model_name = model
-    model_dir = os.environ['HF_HOME'] + "/onnx/" + model.replace("/", "--")
+    model_dir = _hf_home() + "/onnx/" + model.replace("/", "--")
     tokenizer = AutoTokenizer.from_pretrained(model)
 
-    optimization_level = optimization_level or int(os.environ.get("OPTIMIZATION_LEVEL", "2"))
+    optimization_level = optimization_level or int(os.getenv("OPTIMIZATION_LEVEL", "2"))
 
     onnx = optimization_level >= 1
     optimize = optimization_level == 2
@@ -60,6 +60,10 @@ def get_optimized_model(model: str, task: str, optimization_level: int = None, p
         model.push_to_hub(model.model_save_dir, _holisticon_onnx_repository_id(model_name))
 
     return model, tokenizer
+
+
+def _hf_home():
+    return os.getenv('HF_HOME', os.path.join(os.path.expanduser("~"), ".cache", "huggingface"))
 
 
 def _check_exists_on_hub(repository_id: str, filename: str) -> str | None:
