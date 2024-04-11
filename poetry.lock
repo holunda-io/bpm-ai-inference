@@ -347,13 +347,13 @@ tqdm = "*"
 
 [[package]]
 name = "bpm-ai-core"
-version = "2.3.0"
+version = "2.3.1"
 description = "Core AI abstractions and helpers."
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "bpm_ai_core-2.3.0-py3-none-any.whl", hash = "sha256:e8943ca97ac1bac9d795b6a71bd4ab4a38ef49e3b2983f710158edccb3f9254d"},
-    {file = "bpm_ai_core-2.3.0.tar.gz", hash = "sha256:d500d3d437b66a56eda05686d9f5d29c5638bfd85c13568fc99b908409c2dc6b"},
+    {file = "bpm_ai_core-2.3.1-py3-none-any.whl", hash = "sha256:0082adb3425f3960f85973799b3b47099b03d74f7f10c5b7bd46e6891aa03ba8"},
+    {file = "bpm_ai_core-2.3.1.tar.gz", hash = "sha256:13c2fb89de405edcbfc20d678cf1731d446b2119e05949488130ab2e7cfc914b"},
 ]
 
 [package.dependencies]
@@ -2369,7 +2369,7 @@ files = [
 [package.dependencies]
 coloredlogs = "*"
 datasets = [
-    {version = "*"},
+    {version = "*", optional = true, markers = "extra != \"onnxruntime\""},
     {version = ">=1.2.1", optional = true, markers = "extra == \"onnxruntime\""},
 ]
 evaluate = {version = "*", optional = true, markers = "extra == \"onnxruntime\""}
