@@ -9,7 +9,7 @@ async def test_docvqa():
     question = "What is the total?"
 
     result = await model.answer(
-        context_str_or_blob=Blob.from_path_or_url("invoice-simple.webp"),
+        context_str_or_blob=Blob.from_path_or_url("files/invoice-simple.webp"),
         question=question
     )
 

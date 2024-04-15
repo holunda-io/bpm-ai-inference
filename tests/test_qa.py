@@ -15,7 +15,7 @@ async def test_qa():
 
 async def test_qa_ocr():
     ocr = TesseractOCR()
-    ocr_result = await ocr.process("example-multipage.pdf")
+    ocr_result = await ocr.process("files/example-multipage.pdf")
 
     question = "What kind of PDF is this?"
 
