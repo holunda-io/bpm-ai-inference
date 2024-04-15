@@ -43,7 +43,8 @@ class TransformersClassifier(ZeroShotClassifier):
             self,
             text: str,
             classes: list[str],
-            hypothesis_template: str | None = None
+            hypothesis_template: str | None = None,
+            multi_label: bool = False
     ) -> ClassificationResult:
         input_tokens = len(self.tokenizer.encode(text))
         max_tokens = self.tokenizer.model_max_length
@@ -57,7 +58,7 @@ class TransformersClassifier(ZeroShotClassifier):
             text,
             candidate_labels=classes,
             hypothesis_template=hypothesis_template or "This example is about {}",
-            multi_label=False
+            multi_label=multi_label
         )
         # Zip the labels and scores together and find the label with the max score
         labels_scores = list(zip(prediction['labels'], prediction['scores']))

@@ -21,3 +21,14 @@ async def test_classify_threshold():
     result = await classifier.classify(text, classes, confidence_threshold=0.9)
 
     assert result == expected
+
+
+async def test_classify_multi():
+    text = "Poetry is a tool for dependency management and packaging in Python. It allows you to declare the libraries your project depends on and it will manage (install/update) them for you. Poetry offers a lockfile to ensure repeatable installs, and can build your project for distribution."
+    classes = ["python", "news", "programming", "javascript", "law", "history"]
+    expected = {"python", "programming"}
+
+    classifier = TransformersClassifier()
+    result = await classifier.classify(text, classes, confidence_threshold=0.8, multi_label=True)
+
+    assert set([l for l, s in result.labels_scores]) == expected
