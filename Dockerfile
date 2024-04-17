@@ -19,8 +19,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends curl
 RUN curl -sSL https://install.python-poetry.org | python3 -
 # only install dependencies into project virtualenv
 WORKDIR /app
-COPY requirements.txt pyproject.toml poetry.lock ./
-RUN poetry run python -m pip install -r requirements.txt
+COPY requirements.linux-cpu.txt pyproject.toml poetry.lock ./
+RUN poetry run python -m pip install -r requirements.linux-cpu.txt
 RUN poetry install --only main --no-root --no-cache
 
 ###############################################################################
