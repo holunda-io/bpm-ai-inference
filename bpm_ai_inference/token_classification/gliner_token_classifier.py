@@ -20,7 +20,7 @@ class GlinerTokenClassifier(ZeroShotTokenClassifier):
     To use, you should have the ``gliner`` python package installed.
     """
 
-    def __init__(self, model: str = "urchade/gliner_large"):
+    def __init__(self, model: str = "urchade/gliner_large-v2.1"):
         self.model = GLiNER.from_pretrained(model)
 
     @override
