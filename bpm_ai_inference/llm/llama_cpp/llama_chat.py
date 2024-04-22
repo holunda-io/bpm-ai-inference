@@ -4,22 +4,23 @@ import re
 from typing import Dict, Any, Optional, List
 
 from bpm_ai_core.llm.common.llm import LLM
-from bpm_ai_core.llm.common.message import ChatMessage, AssistantMessage, SystemMessage, ToolCallMessage
+from bpm_ai_core.llm.common.message import ChatMessage, AssistantMessage, ToolCallMessage
 from bpm_ai_core.llm.common.tool import Tool
-from bpm_ai_core.llm.openai_chat.util import messages_to_openai_dicts
 from bpm_ai_core.prompt.prompt import Prompt
 from bpm_ai_core.tracing.tracing import Tracing
 from bpm_ai_core.util.json_schema import expand_simplified_json_schema
-from llama_cpp.llama_grammar import json_schema_to_gbnf, LlamaGrammar
 
 from bpm_ai_inference.llm.llama_cpp._constants import DEFAULT_MODEL, DEFAULT_TEMPERATURE, DEFAULT_MAX_RETRIES, \
     DEFAULT_QUANT_BALANCED
 from bpm_ai_inference.llm.llama_cpp.util import messages_to_llama_dicts
+from bpm_ai_inference.util.files import find_file
+from bpm_ai_inference.util.hf import hf_home
 
 logger = logging.getLogger(__name__)
 
 try:
     from llama_cpp import Llama, CreateChatCompletionResponse, llama_grammar
+    from llama_cpp.llama_grammar import json_schema_to_gbnf, LlamaGrammar
 
     has_llama_cpp_python = True
 except ImportError:
@@ -39,6 +40,7 @@ class ChatLlamaCpp(LLM):
         filename: str = DEFAULT_QUANT_BALANCED,
         temperature: float = DEFAULT_TEMPERATURE,
         max_retries: int = DEFAULT_MAX_RETRIES,
+        force_offline: bool = False
     ):
         if not has_llama_cpp_python:
             raise ImportError('llama-cpp-python is not installed')
@@ -48,12 +50,21 @@ class ChatLlamaCpp(LLM):
             max_retries=max_retries,
             retryable_exceptions=[]
         )
-        self.llm = Llama.from_pretrained(
-            repo_id=model,
-            filename=filename,
-            n_ctx=4096,
-            verbose=False
-        )
+        n_ctx = 4096
+        if force_offline:
+            self.llm = Llama(
+                model_path=find_file(hf_home() + "hub/models--" + model.replace("/", "--"), filename),
+                n_ctx=n_ctx,
+                verbose=False
+            )
+        else:
+            self.llm = Llama.from_pretrained(
+                repo_id=model,
+                filename=filename,
+                n_ctx=n_ctx,
+                verbose=False
+            )
+
 
     async def _generate_message(
         self,
