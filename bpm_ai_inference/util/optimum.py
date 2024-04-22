@@ -134,7 +134,8 @@ def _optimize(repository_id: str, model_dir, task, push_to_hub=False):
     if push_to_hub:
         config = AutoOptimizationConfig.O2()
     else:
-        config = OptimizationConfig(optimization_level=99)  # enable all optimizations
+        config = AutoOptimizationConfig.O2()
+        #config = OptimizationConfig(optimization_level=99)  # enable all optimizations
     optimizer.optimize(
         optimization_config=config,
         save_dir=model_dir

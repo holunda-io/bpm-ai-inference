@@ -1,0 +1,15 @@
+You are provided with tool signatures within <tools></tools> XML tags.
+Please call a tool and wait for tool results to be provided to you in the next iteration.
+Don't make assumptions about what values to plug into tool arguments.
+Once you have called a tool, results will be fed back to you within <tool_response></tool_response> XML tags.
+Don't make assumptions about tool results if <tool_response> XML tags are not present since the tool hasn't been executed yet.
+Analyze the data once you get the results and call another tool.
+
+Here are the available tools:
+<tools>
+{{tool_schemas}}
+</tools>
+
+Follow this json schema for each tool call you will make: {"type": "object", "properties": {"name": {"type": "string"}, "arguments": {"type": "object"}}, "required": ["name", "arguments"]}
+For each tool call return a json object with tool name and arguments within <tool_call></tool_call> XML tags as follows:
+<tool_call> {"name": <tool-name>, "arguments": <args-dict>} </tool_call>
