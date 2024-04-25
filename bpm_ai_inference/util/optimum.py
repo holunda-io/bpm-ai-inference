@@ -9,7 +9,7 @@ import cpuinfo
 from huggingface_hub import HfFileSystem
 from optimum.onnxruntime import ORTModelForSequenceClassification, ORTOptimizer, ORTQuantizer, \
     ORTModelForQuestionAnswering, ORTModel
-from optimum.onnxruntime.configuration import OptimizationConfig, AutoQuantizationConfig, AutoOptimizationConfig
+from optimum.onnxruntime.configuration import AutoQuantizationConfig, AutoOptimizationConfig
 from transformers import AutoTokenizer
 
 from bpm_ai_inference.util.hf import hf_home

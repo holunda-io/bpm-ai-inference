@@ -1,4 +1,3 @@
-import asyncio
 import logging
 
 from bpm_ai_core.pos.pos_tagger import POSTagger, POSResult

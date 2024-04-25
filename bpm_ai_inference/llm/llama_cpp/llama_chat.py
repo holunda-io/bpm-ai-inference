@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 import re
 from typing import Dict, Any, Optional, List
 
@@ -13,6 +14,7 @@ from bpm_ai_core.util.json_schema import expand_simplified_json_schema
 from bpm_ai_inference.llm.llama_cpp._constants import DEFAULT_MODEL, DEFAULT_TEMPERATURE, DEFAULT_MAX_RETRIES, \
     DEFAULT_QUANT_BALANCED
 from bpm_ai_inference.llm.llama_cpp.util import messages_to_llama_dicts
+from bpm_ai_inference.util import FORCE_OFFLINE_FLAG
 from bpm_ai_inference.util.files import find_file
 from bpm_ai_inference.util.hf import hf_home
 
@@ -40,7 +42,7 @@ class ChatLlamaCpp(LLM):
         filename: str = DEFAULT_QUANT_BALANCED,
         temperature: float = DEFAULT_TEMPERATURE,
         max_retries: int = DEFAULT_MAX_RETRIES,
-        force_offline: bool = False
+        force_offline: bool = os.getenv(FORCE_OFFLINE_FLAG, False)
     ):
         if not has_llama_cpp_python:
             raise ImportError('llama-cpp-python is not installed')
@@ -52,8 +54,9 @@ class ChatLlamaCpp(LLM):
         )
         n_ctx = 4096
         if force_offline:
+            model_file = find_file(hf_home() + "hub/models--" + model.replace("/", "--"), filename)
             self.llm = Llama(
-                model_path=find_file(hf_home() + "hub/models--" + model.replace("/", "--"), filename),
+                model_path=model_file,
                 n_ctx=n_ctx,
                 verbose=False
             )
@@ -64,7 +67,6 @@ class ChatLlamaCpp(LLM):
                 n_ctx=n_ctx,
                 verbose=False
             )
-
 
     async def _generate_message(
         self,
