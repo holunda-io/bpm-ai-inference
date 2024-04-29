@@ -1,6 +1,7 @@
 import io
 
 from bpm_ai_core.speech_recognition.asr import ASRModel, ASRResult
+from bpm_ai_core.util.caching import cachable
 from typing_extensions import override
 
 try:
@@ -10,6 +11,7 @@ except ImportError:
     has_faster_whisper = False
 
 
+@cachable()
 class FasterWhisperASR(ASRModel):
     """
     Local `OpenAI` Whisper Automatic Speech Recognition (ASR) model for transcribing audio.

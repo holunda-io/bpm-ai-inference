@@ -11,4 +11,4 @@ def cleanup():
     yield
     if platform.system() != "Darwin":
         cache_dir = hf_home()
-        shutil.rmtree(cache_dir)
+        shutil.rmtree(cache_dir, ignore_errors=True)
