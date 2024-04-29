@@ -2,9 +2,10 @@ import logging
 
 from bpm_ai_core.token_classification.zero_shot_token_classifier import ZeroShotTokenClassifier, \
     TokenClassificationResult, TokenSpan
+from bpm_ai_core.util.caching import cachable
 from typing_extensions import override
 
-from bpm_ai_inference.classification.transformers_classifier import TransformersClassifier, DEFAULT_MODEL_EN, \
+from bpm_ai_inference.classification.transformers_text_classifier import TransformersClassifier, DEFAULT_MODEL_EN, \
     DEFAULT_MODEL_MULTI
 from bpm_ai_inference.pos.spacy_pos_tagger import SpacyPOSTagger
 from bpm_ai_inference.util.language import indentify_language
@@ -12,6 +13,7 @@ from bpm_ai_inference.util.language import indentify_language
 logger = logging.getLogger(__name__)
 
 
+@cachable()
 class TransformersTokenClassifier(ZeroShotTokenClassifier):
     """
     Zero Shot Token Classifier based on a POS tagger and a zero shot classifier.

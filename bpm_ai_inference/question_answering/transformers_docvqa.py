@@ -2,6 +2,7 @@ import logging
 
 from bpm_ai_core.llm.common.blob import Blob
 from bpm_ai_core.question_answering.question_answering import QuestionAnswering, QAResult
+from bpm_ai_core.util.caching import cachable
 from bpm_ai_core.util.image import blob_as_images
 from typing_extensions import override
 
@@ -17,6 +18,7 @@ logger = logging.getLogger(__name__)
 IMAGE_FORMATS = ["png", "jpeg"]
 
 
+@cachable()
 class TransformersDocVQA(QuestionAnswering):
     """
     Local visual document question answering model based on Huggingface transformers library.

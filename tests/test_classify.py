@@ -1,13 +1,23 @@
-from bpm_ai_inference.classification.transformers_classifier import TransformersClassifier
+from bpm_ai_inference.classification.transformers_text_classifier import TransformersClassifier
 
 
-async def test_classify():
+async def test_classify_zero_shot():
     text = "I am so sleepy today."
     classes = ["tired", "energized", "unknown"]
     expected = "tired"
 
     classifier = TransformersClassifier()
     result = await classifier.classify(text, classes, confidence_threshold=0.8)
+
+    assert result.max_label == expected
+
+
+async def test_classify():
+    text = "I am so happy today."
+    expected = "Positive"
+
+    classifier = TransformersClassifier(model="RashidNLP/Finance-Sentiment-Classification", zero_shot=False)
+    result = await classifier.classify(text, confidence_threshold=0.8)
 
     assert result.max_label == expected
 

@@ -2,6 +2,7 @@ import logging
 
 from bpm_ai_core.token_classification.zero_shot_token_classifier import ZeroShotTokenClassifier, \
     TokenClassificationResult, TokenSpan
+from bpm_ai_core.util.caching import cachable
 from typing_extensions import override
 
 try:
@@ -13,6 +14,7 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
+@cachable()
 class GlinerTokenClassifier(ZeroShotTokenClassifier):
     """
     Zero Shot Token Classifier based on GLiNER.

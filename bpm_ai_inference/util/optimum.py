@@ -8,7 +8,7 @@ from typing import Type
 import cpuinfo
 from huggingface_hub import HfFileSystem
 from optimum.onnxruntime import ORTModelForSequenceClassification, ORTOptimizer, ORTQuantizer, \
-    ORTModelForQuestionAnswering, ORTModel
+    ORTModelForQuestionAnswering, ORTModel, ORTModelForImageClassification
 from optimum.onnxruntime.configuration import AutoQuantizationConfig, AutoOptimizationConfig
 from transformers import AutoTokenizer
 
@@ -49,14 +49,17 @@ def get_optimized_model(model: str, task: str, optimization_level: int = None, p
     optimize = optimization_level == 2
     quantize = optimization_level == 3
 
-    if onnx:
-        tokenizer.model_input_names = ['input_ids', 'attention_mask']
-        if optimize:
-            model = _optimize(model, model_dir, task, push_to_hub=push_to_hub)
-        elif quantize:
-            model = _quantize(model, model_dir, task, push_to_hub=push_to_hub)
-        else:
-            model = _export_to_onnx(model, model_dir, task)
+    try:
+        if onnx:
+            tokenizer.model_input_names = ['input_ids', 'attention_mask']
+            if optimize:
+                model = _optimize(model, model_dir, task, push_to_hub=push_to_hub)
+            elif quantize:
+                model = _quantize(model, model_dir, task, push_to_hub=push_to_hub)
+            else:
+                model = _export_to_onnx(model, model_dir, task)
+    except Exception as e:
+        logger.warning("Error while trying to optimize model, falling back to unoptimized model: %s", e)
 
     if push_to_hub:
         model.push_to_hub(model.model_save_dir, _holisticon_onnx_repository_id(model_name))
@@ -95,6 +98,12 @@ def _task_to_model(task: str):
     match task:
         case "zero-shot-classification":
             return ORTModelForSequenceClassification
+        case "text-classification":
+            return ORTModelForSequenceClassification
+        case "zero-shot-image-classification":
+            return ORTModelForImageClassification
+        case "image-classification":
+            return ORTModelForImageClassification
         case "question-answering":
             return ORTModelForQuestionAnswering
 

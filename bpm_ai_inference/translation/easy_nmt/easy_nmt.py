@@ -7,6 +7,7 @@ import re
 import time
 from typing import List, Union, Dict, FrozenSet, Iterable
 
+from bpm_ai_core.util.caching import cachable
 from typing_extensions import override
 
 try:
@@ -29,6 +30,9 @@ logger = logging.getLogger(__name__)
 DOWNLOAD_URL = 'http://easynmt.net/models/v2'
 
 
+@cachable(
+    exclude_key_params=["cache_folder", "device"]
+)
 class EasyNMT(NMTModel):
     """
     See https://github.com/UKPLab/EasyNMT.

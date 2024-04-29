@@ -2,6 +2,7 @@ import logging
 
 from bpm_ai_core.llm.common.blob import Blob
 from bpm_ai_core.question_answering.question_answering import QuestionAnswering, QAResult
+from bpm_ai_core.util.caching import cachable
 from bpm_ai_core.util.image import blob_as_images
 from typing_extensions import override
 
@@ -19,6 +20,7 @@ logger = logging.getLogger(__name__)
 IMAGE_FORMATS = ["png", "jpeg"]
 
 
+@cachable()
 class Pix2StructVQA(QuestionAnswering):
     """
     Local visual question answering model based on Pix2Struct and Huggingface transformers library.
@@ -26,7 +28,7 @@ class Pix2StructVQA(QuestionAnswering):
     To use, you should have the ``transformers`` python package installed.
     """
 
-    def __init__(self,model: str = "google/pix2struct-docvqa-base"):
+    def __init__(self, model: str = "google/pix2struct-docvqa-base"):
         if not has_transformers:
             raise ImportError('transformers is not installed')
         self.model = model

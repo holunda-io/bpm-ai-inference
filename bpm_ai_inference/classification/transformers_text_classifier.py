@@ -1,6 +1,7 @@
 import logging
 
-from bpm_ai_core.classification.zero_shot_classifier import ZeroShotClassifier, ClassificationResult
+from bpm_ai_core.text_classification.text_classifier import TextClassifier, ClassificationResult
+from bpm_ai_core.util.caching import cachable
 from typing_extensions import override
 
 from bpm_ai_inference.util.optimum import get_optimized_model
@@ -19,21 +20,24 @@ DEFAULT_MODEL_EN = "MoritzLaurer/deberta-v3-large-zeroshot-v2.0"
 DEFAULT_MODEL_MULTI = "MoritzLaurer/bge-m3-zeroshot-v2.0"
 
 
-class TransformersClassifier(ZeroShotClassifier):
+@cachable()
+class TransformersClassifier(TextClassifier):
     """
-    Local zero-shot classification model based on Huggingface transformers library.
+    Local (zero-shot) text classification model based on Huggingface transformers library.
 
     To use, you should have the ``transformers`` and ``optimum`` python packages installed.
     """
 
-    def __init__(self, model: str = DEFAULT_MODEL_EN):
+    def __init__(self, model: str = DEFAULT_MODEL_EN, zero_shot: bool = True):
         if not has_transformers:
             raise ImportError('transformers or optimum not installed')
 
-        model, self.tokenizer = get_optimized_model(model, "zero-shot-classification")
+        task = "zero-shot-classification" if zero_shot else "text-classification"
 
-        self.zeroshot_classifier = pipeline(
-            "zero-shot-classification",
+        model, self.tokenizer = get_optimized_model(model, task)
+
+        self.text_classifier = pipeline(
+            task,
             model=model,
             tokenizer=self.tokenizer
         )
@@ -42,7 +46,7 @@ class TransformersClassifier(ZeroShotClassifier):
     async def _do_classify(
             self,
             text: str,
-            classes: list[str],
+            classes: list[str] = None,
             hypothesis_template: str | None = None,
             multi_label: bool = False
     ) -> ClassificationResult:
@@ -54,14 +58,17 @@ class TransformersClassifier(ZeroShotClassifier):
                 f"Input tokens exceed max model context size: {input_tokens} > {max_tokens}. Input will be truncated."
             )
 
-        prediction = self.zeroshot_classifier(
+        prediction = self.text_classifier(
             text,
-            candidate_labels=classes,
-            hypothesis_template=hypothesis_template or "This example is about {}",
-            multi_label=multi_label
+            **({"candidate_labels": classes} if classes else {}),
+            **({"hypothesis_template": hypothesis_template or "This example is about {}"} if classes else {}),
+            **({"multi_label": multi_label} if classes else {}),
         )
         # Zip the labels and scores together and find the label with the max score
-        labels_scores = list(zip(prediction['labels'], prediction['scores']))
+        if 'labels' in prediction:
+            labels_scores = list(zip(prediction['labels'], prediction['scores']))
+        else:
+            labels_scores = [(p['label'], p['score']) for p in prediction]
         max_label, max_score = max(labels_scores, key=lambda x: x[1])
 
         return ClassificationResult(

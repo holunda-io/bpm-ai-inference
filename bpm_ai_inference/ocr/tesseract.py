@@ -5,6 +5,7 @@ import urllib
 from PIL import Image
 from bpm_ai_core.llm.common.blob import Blob
 from bpm_ai_core.ocr.ocr import OCR, OCRResult, OCRPage
+from bpm_ai_core.util.caching import cachable
 from bpm_ai_core.util.image import pdf_to_images
 from typing_extensions import override
 
@@ -21,6 +22,7 @@ logger = logging.getLogger(__name__)
 TESSDATA_DIR = "~/.bpm.ai/tessdata/"
 
 
+@cachable()
 class TesseractOCR(OCR):
     """
     Local OCR model based on tesseract.

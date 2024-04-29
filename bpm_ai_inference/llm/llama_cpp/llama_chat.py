@@ -9,6 +9,7 @@ from bpm_ai_core.llm.common.message import ChatMessage, AssistantMessage, ToolCa
 from bpm_ai_core.llm.common.tool import Tool
 from bpm_ai_core.prompt.prompt import Prompt
 from bpm_ai_core.tracing.tracing import Tracing
+from bpm_ai_core.util.caching import cachable
 from bpm_ai_core.util.json_schema import expand_simplified_json_schema
 
 from bpm_ai_inference.llm.llama_cpp._constants import DEFAULT_MODEL, DEFAULT_TEMPERATURE, DEFAULT_MAX_RETRIES, \
@@ -29,6 +30,9 @@ except ImportError:
     has_llama_cpp_python = False
 
 
+@cachable(
+    exclude_key_params=["max_retries", "force_offline"]
+)
 class ChatLlamaCpp(LLM):
     """
     Local open-weight chat large language models based on `llama-cpp-python` running on CPU.

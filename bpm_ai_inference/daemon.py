@@ -1,9 +1,11 @@
 import logging
 import os
 
-from bpm_ai_core.util.remote_object import create_remote_object_daemon
+from bpm_ai_core.util.rpc import create_remote_object_daemon
 
-from bpm_ai_inference.classification.transformers_classifier import TransformersClassifier
+from bpm_ai_inference.classification.transformers_text_classifier import TransformersClassifier
+from bpm_ai_inference.image_classification.transformers_image_classifier import TransformersImageClassifier
+from bpm_ai_inference.llm.llama_cpp.llama_chat import ChatLlamaCpp
 from bpm_ai_inference.ocr.tesseract import TesseractOCR
 from bpm_ai_inference.pos.spacy_pos_tagger import SpacyPOSTagger
 from bpm_ai_inference.question_answering.pix2struct_vqa import Pix2StructVQA
@@ -16,6 +18,7 @@ from bpm_ai_inference.translation.easy_nmt.easy_nmt import EasyNMT
 
 remote_classes = [
     TransformersClassifier,
+    TransformersImageClassifier,
     TransformersTokenClassifier,
     GlinerTokenClassifier,
     TesseractOCR,
@@ -24,7 +27,8 @@ remote_classes = [
     TransformersDocVQA,
     TransformersExtractiveQA,
     FasterWhisperASR,
-    EasyNMT
+    EasyNMT,
+    ChatLlamaCpp
 ]
 
 if __name__ == "__main__":

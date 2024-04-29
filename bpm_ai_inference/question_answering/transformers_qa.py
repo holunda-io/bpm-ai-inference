@@ -2,6 +2,7 @@ import logging
 
 from bpm_ai_core.llm.common.blob import Blob
 from bpm_ai_core.question_answering.question_answering import QuestionAnswering, QAResult
+from bpm_ai_core.util.caching import cachable
 from typing_extensions import override
 
 from bpm_ai_inference.util.optimum import get_optimized_model
@@ -15,6 +16,7 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
+@cachable()
 class TransformersExtractiveQA(QuestionAnswering):
     """
     Local extractive question answering model based on Huggingface transformers library.

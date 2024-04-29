@@ -10,7 +10,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12"
-bpm-ai-core = "^2.5.0"
+bpm-ai-core = "^2.6.0"
 langfuse = "^2.7.6"
 faster-whisper = "^0.10.0"
 lingua-language-detector = "^2.0.2"
@@ -19,13 +19,13 @@ transformers = "^4.39.3"
 sacremoses = "^0.1.1"
 sentencepiece = "^0.2.0"
 nltk = "^3.8.0"
-pyro5 = "^5.15"
 optimum = {extras = ["onnxruntime"], version = "^1.18.0"}
 gliner = "^0.1.6"
 scipy = "1.10.1"
 py-cpuinfo = "^9.0.0"
-llama-cpp-python = "^0.2.62"
+llama-cpp-python = "^0.2.65"
 #fast-fit = "^1.2.0"
+#jupyter = "^1.0.0"
 
 
 [tool.poetry.group.test.dependencies]
