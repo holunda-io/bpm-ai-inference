@@ -1,5 +1,5 @@
 
-DEFAULT_MODEL = "QuantFactory/dolphin-2.9-llama3-8b-GGUF"
+DEFAULT_MODEL = "QuantFactory/Meta-Llama-3-8B-Instruct-GGUF"
 DEFAULT_QUANT_LARGE = "*Q8_0.gguf"
 DEFAULT_QUANT_BALANCED = "*Q4_K_M.gguf"
 DEFAULT_QUANT_SMALL = "*Q2_K.gguf"

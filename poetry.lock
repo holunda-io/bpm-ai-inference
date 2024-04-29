@@ -332,13 +332,13 @@ tqdm = "*"
 
 [[package]]
 name = "bpm-ai-core"
-version = "2.6.0"
+version = "2.6.1"
 description = "Core AI abstractions and helpers."
 optional = false
 python-versions = "<4.0,>=3.11"
 files = [
-    {file = "bpm_ai_core-2.6.0-py3-none-any.whl", hash = "sha256:bb1753296b637231f9fe295ba32c9da6374e60da09ea3323c628a9e382749f84"},
-    {file = "bpm_ai_core-2.6.0.tar.gz", hash = "sha256:6a88de6212a7d67fd6af4e73983eac7dd008fff4a8509f0dff3ad0029575b99f"},
+    {file = "bpm_ai_core-2.6.1-py3-none-any.whl", hash = "sha256:38e3bf71a93f3fa714b5d70692ebfd8b8fa2d8cd0e50ddce1e01f33a823d0be4"},
+    {file = "bpm_ai_core-2.6.1.tar.gz", hash = "sha256:542f4c489e87894071e8df8ccaff60cbc1b6669d8aefcea7d5a3e49ac4442cce"},
 ]
 
 [package.dependencies]
@@ -4377,4 +4377,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "ca370e8760dbcc580dc6f122dc7c839a3095522970216401c4a40c14dbc367ed"
+content-hash = "dfd3d34b8de4ac1535f96ba98a58fb35b8fe203c3ad55aea9125b959290ce69e"

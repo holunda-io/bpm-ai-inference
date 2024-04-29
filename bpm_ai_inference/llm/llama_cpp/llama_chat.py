@@ -65,6 +65,7 @@ class ChatLlamaCpp(LLM):
                 verbose=False
             )
         else:
+            logger.info(f"Loading model file {filename} from {model}...")
             self.llm = Llama.from_pretrained(
                 repo_id=model,
                 filename=filename,
