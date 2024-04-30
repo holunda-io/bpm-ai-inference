@@ -32,7 +32,7 @@ remote_classes = [
 ]
 
 if __name__ == "__main__":
-    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
+    logging.basicConfig(format='%(levelname)s: %(message)s', level=int(os.getenv('LOG_LEVEL', str(logging.INFO))))
 
     daemon = create_remote_object_daemon(
         host=os.getenv('DAEMON_HOST', '0.0.0.0'),
