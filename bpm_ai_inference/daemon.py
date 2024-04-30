@@ -35,8 +35,10 @@ if __name__ == "__main__":
     logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
     daemon = create_remote_object_daemon(
-        host=os.environ.get('DAEMON_HOST', '0.0.0.0'),
-        port=int(os.environ.get('DAEMON_PORT', 6666))
+        host=os.getenv('DAEMON_HOST', '0.0.0.0'),
+        port=int(os.getenv('DAEMON_PORT', 6666)),
+        instance_strategy=os.getenv('INSTANCE_STRATEGY', 'memory_limit'),
+        max_memory=int(os.getenv('SOFT_MEMORY_LIMIT', 8_589_934_592))
     )
 
     for c in remote_classes:
