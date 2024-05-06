@@ -38,7 +38,7 @@ if __name__ == "__main__":
         host=os.getenv('DAEMON_HOST', '0.0.0.0'),
         port=int(os.getenv('DAEMON_PORT', 6666)),
         instance_strategy=os.getenv('INSTANCE_STRATEGY', 'memory_limit'),
-        max_memory=int(os.getenv('SOFT_MEMORY_LIMIT', 8_589_934_592))
+        max_memory=int(os.getenv('SOFT_MEMORY_LIMIT', 16_000_000_000))
     )
 
     for c in remote_classes:

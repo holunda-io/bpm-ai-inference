@@ -46,7 +46,7 @@ class ChatLlamaCpp(LLM):
         filename: str = DEFAULT_QUANT_BALANCED,
         temperature: float = DEFAULT_TEMPERATURE,
         max_retries: int = DEFAULT_MAX_RETRIES,
-        force_offline: bool = os.getenv(FORCE_OFFLINE_FLAG, False)
+        force_offline: bool = (os.getenv(FORCE_OFFLINE_FLAG, "false").lower() == "true")
     ):
         if not has_llama_cpp_python:
             raise ImportError('llama-cpp-python is not installed')

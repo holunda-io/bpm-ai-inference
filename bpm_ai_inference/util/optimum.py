@@ -39,6 +39,8 @@ def _holisticon_onnx_repository_id(model_name: str) -> str:
 
 
 def get_optimized_model(model: str, task: str, optimization_level: int = None, push_to_hub: bool = False):
+    logger.info(f"Loading model {model}...")
+
     model_name = model
     model_dir = hf_home() + "/onnx/" + model.replace("/", "--")
     tokenizer = AutoTokenizer.from_pretrained(model)
@@ -123,6 +125,7 @@ def _export_to_onnx(repository_id: str, model_dir, task):
 
 @timer
 def _optimize(repository_id: str, model_dir, task, push_to_hub=False):
+    logger.info(f"Optimizing model {repository_id}...")
     model_class = _task_to_model(task)
 
     # try to load from hub or cache
