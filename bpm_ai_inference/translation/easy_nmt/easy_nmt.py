@@ -73,8 +73,8 @@ class EasyNMT(NMTModel):
         self.config = None
 
         if cache_folder is None:
-            if 'EASYNMT_CACHE' in os.environ:
-                cache_folder = os.environ['EASYNMT_CACHE']
+            if 'BPM_AI_CACHE_DIR' in os.environ:
+                cache_folder = os.path.join(os.environ['BPM_AI_CACHE_DIR'], 'easynmt_v2')
             else:
                 cache_folder = os.path.join(torch.hub._get_torch_home(), 'easynmt_v2')
         self._cache_folder = cache_folder
