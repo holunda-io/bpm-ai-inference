@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bpm-ai-inference"
-version = "0.3.5"
+version = "0.3.6"
 description = "Inference and server for local AI implementations of bpm-ai-core abstractions."
 authors = ["Bennet Krause <bennet.krause@holisticon.de>"]
 repository = "https://github.com/holunda-io/bpm-ai-inference"
@@ -23,7 +23,7 @@ optimum = {extras = ["onnxruntime"], version = "^1.18.0"}
 gliner = "^0.1.6"
 scipy = "1.10.1"
 py-cpuinfo = "^9.0.0"
-llama-cpp-python = "^0.2.69"
+llama-cpp-python = "^0.3.1"
 
 
 [tool.poetry.group.test.dependencies]

@@ -45,6 +45,7 @@ class ChatLlamaCpp(LLM):
         model: str = DEFAULT_MODEL,
         filename: str = DEFAULT_QUANT_BALANCED,
         temperature: float = DEFAULT_TEMPERATURE,
+        grammar: str = None,
         max_retries: int = DEFAULT_MAX_RETRIES,
         force_offline: bool = (os.getenv(FORCE_OFFLINE_FLAG, "false").lower() == "true")
     ):
@@ -56,6 +57,7 @@ class ChatLlamaCpp(LLM):
             max_retries=max_retries,
             retryable_exceptions=[]
         )
+        self.grammar = grammar
         n_ctx = 4096
         if force_offline:
             model_file = find_file(hf_home() + "hub/models--" + model.replace("/", "--"), filename)
@@ -134,6 +136,8 @@ class ChatLlamaCpp(LLM):
                 messages.pop()
             prefix = "<tool_call>"
             stop = ["</tool_call>"]
+
+        grammar = self.grammar if not grammar and self.grammar else grammar
 
         Tracing.tracers().start_llm_trace(self, messages, current_try, tools or ({"output_schema": output_schema} if output_schema else None))
         completion: CreateChatCompletionResponse = self.llm.create_chat_completion(

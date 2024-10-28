@@ -14,6 +14,9 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
+DEFAULT_MODEL = "numind/NuNER_Zero-span"
+DEFAULT_MODEL_2 = "urchade/gliner_large-v2.1"
+
 @cachable()
 class GlinerTokenClassifier(ZeroShotTokenClassifier):
     """
@@ -22,7 +25,7 @@ class GlinerTokenClassifier(ZeroShotTokenClassifier):
     To use, you should have the ``gliner`` python package installed.
     """
 
-    def __init__(self, model: str = "urchade/gliner_large-v2.1"):
+    def __init__(self, model: str = DEFAULT_MODEL):
         self.model = GLiNER.from_pretrained(model)
 
     @override
