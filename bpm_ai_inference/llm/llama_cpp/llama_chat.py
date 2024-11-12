@@ -15,7 +15,7 @@ from bpm_ai_core.util.json_schema import expand_simplified_json_schema
 from bpm_ai_inference.llm.llama_cpp._constants import DEFAULT_MODEL, DEFAULT_TEMPERATURE, DEFAULT_MAX_RETRIES, \
     DEFAULT_QUANT_BALANCED
 from bpm_ai_inference.llm.llama_cpp.util import messages_to_llama_dicts
-from bpm_ai_inference.util import FORCE_OFFLINE_FLAG
+from bpm_ai_inference.util import FORCE_OFFLINE_FLAG, LLAMA_CPP_N_CTX
 from bpm_ai_inference.util.files import find_file
 from bpm_ai_inference.util.hf import hf_home
 
@@ -47,6 +47,7 @@ class ChatLlamaCpp(LLM):
         temperature: float = DEFAULT_TEMPERATURE,
         grammar: str = None,
         max_retries: int = DEFAULT_MAX_RETRIES,
+        n_ctx: int = int(os.getenv(LLAMA_CPP_N_CTX, "4096")),
         force_offline: bool = (os.getenv(FORCE_OFFLINE_FLAG, "false").lower() == "true")
     ):
         if not has_llama_cpp_python:
@@ -58,7 +59,6 @@ class ChatLlamaCpp(LLM):
             retryable_exceptions=[]
         )
         self.grammar = grammar
-        n_ctx = 4096
         if force_offline:
             model_file = find_file(hf_home() + "hub/models--" + model.replace("/", "--"), filename)
             self.llm = Llama(
